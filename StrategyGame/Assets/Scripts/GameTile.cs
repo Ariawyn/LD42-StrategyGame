@@ -34,6 +34,13 @@ public class GameTile : MonoBehaviour {
 		}
 	}
 
+	public PlaceableObjectType GetOccupyingObjectType() {
+		if (occupyingObject == null) {
+			return PlaceableObjectType.NULL;
+		}
+		return occupyingObject.GetComponent<PlaceableObject>().myType;
+	}
+
 	/// <summary>
 	/// Destroys this gameobject.
 	/// </summary>
@@ -91,8 +98,9 @@ public class GameTile : MonoBehaviour {
 
 }
 
-public enum PlaceableObjects
+public enum PlaceableObjectType
 {
+	NULL,
 	BALLOON,
 	FACTORY
 }

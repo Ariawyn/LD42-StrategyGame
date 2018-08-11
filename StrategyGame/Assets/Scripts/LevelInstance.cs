@@ -122,7 +122,7 @@ public class LevelInstance : MonoBehaviour {
 		else {
 			List<GameTile> tAdj = t.GetAdjacentTiles();
 			foreach (GameTile gt in tAdj) {
-				if (gt.occupyingObject != null) {
+				if (gt.GetOccupyingObjectType() == PlaceableObjectType.BALLOON) {
 					return true;
 				}
 				else {
@@ -144,7 +144,7 @@ public class LevelInstance : MonoBehaviour {
 			return false;
 		}
 		else {
-			if (t.occupyingObject == null)
+			if (t.GetOccupyingObjectType() == PlaceableObjectType.NULL)
 				return true;
 			else
 				return false;
