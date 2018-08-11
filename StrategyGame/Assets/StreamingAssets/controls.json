@@ -1,0 +1,40 @@
+{
+    "keys": [
+        {
+            "keyName": "Forward",
+            "keyValue": "W"
+        },
+        {
+            "keyName": "Backward",
+            "keyValue": "S"
+        },
+        {
+            "keyName": "Left",
+            "keyValue": "A"
+        },
+        {
+            "keyName": "Right",
+            "keyValue": "D"
+        },
+        {
+            "keyName": "alt_Forward",
+            "keyValue": "UpArrow"
+        },
+        {
+            "keyName": "alt_Backward",
+            "keyValue": "DownArrow"
+        },
+        {
+            "keyName": "alt_Left",
+            "keyValue": "LeftArrow"
+        },
+        {
+            "keyName": "alt_Right",
+            "keyValue": "RightArrow"
+        },
+        {
+            "keyName": "Interact",
+            "keyValue": "F"
+        }
+    ]
+}
