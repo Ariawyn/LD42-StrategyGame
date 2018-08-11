@@ -34,10 +34,17 @@ public class GameTile : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Destroys this gameobject.
+	/// </summary>
 	public void DestroyTile() {
 		this.gameObject.SetActive(false);
 	}
 
+	/// <summary>
+	/// Sets a prefab specified as the child of this object.
+	/// </summary>
+	/// <param name="prefab"></param>
 	public void PlaceObjectOnThisTile(GameObject prefab) {
 		if (occupyingObject != null) {
 			Debug.Log("That tile is occupied!");
@@ -49,6 +56,10 @@ public class GameTile : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Returns a list of GameTiles adjacent(cardinal) to this tile.
+	/// </summary>
+	/// <returns></returns>
 	public List<GameTile> GetAdjacentTiles() {
 		List<GameTile> adjTiles = new List<GameTile>();
 

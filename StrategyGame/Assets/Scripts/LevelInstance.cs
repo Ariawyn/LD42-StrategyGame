@@ -25,14 +25,19 @@ public class LevelInstance : MonoBehaviour {
         // GetTileAtPosition(mousePos);
     }
     
-    //Check if a tilemap exists and if so, destroy it.
-    // Then, instantiate the new tilemap, set the start cells, and set the target cell.
-    // Check the list of events and tell the game manager?
+    /// <summary>
+    /// Instantiates the level.
+    /// </summary>
     void InstantiateLevel() {
 		tileMap = (GameObject)Instantiate(tileMapPrefab);
 		tileMap.transform.SetParent(this.transform);
     }
 
+	/// <summary>
+	/// Finds tiles adjacent to the position specified.
+	/// </summary>
+	/// <param name="position"></param>
+	/// <returns>A list of GameTiles which are adjacent(cardinal) to the position</returns>
 	public List<GameTile> GetTilesAdjacentToPosition(Vector3 position) {
 		GameTile ti = GetTileAtPosition(position);
 		if (ti != null) {
@@ -71,18 +76,26 @@ public class LevelInstance : MonoBehaviour {
 		
 	}
 
-    //Decay a tile at a certain position. Make sure that the tile is
-    // not occupied by a balloon
+    /// <summary>
+    /// Destroys the tile at the position.
+    /// </summary>
+    /// <param name="pos"></param>
     public void DestroyTileAtPosition(Vector3 pos){
 		GameTile t = GetTileAtPosition(pos);
 		t.DestroyTile();
     }
 
-    //Create a tile at a certain position. Make sure it is valid.
+    /// <summary>
+    /// Don't use this yet.
+    /// </summary>
+    /// <param name="pos"></param>
     public void PlaceTileAtPosition(Vector3 pos /*tiletype*/){}
 
-    // Just get the tilemap's tile.
-    // TODO: Floor to int?
+    /// <summary>
+    /// Gets a tile at the position, or returns null.
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <returns></returns>
     public GameTile GetTileAtPosition(Vector3 pos){
         RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.up, 0.01f);
 		if (hit.collider != null) {
@@ -95,9 +108,12 @@ public class LevelInstance : MonoBehaviour {
 	}
     
 
-    //If the bridge is being placed next to land, then it is an end bridge,
-    // and it the land tile should contain a balloon.
-    // If not, then it should be next to another bridge tile.
+    /// <summary>
+    /// Currently not working. Will check if there is a tile at the position
+	/// and if not, if adjacent tiles have a balloon on them.
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <returns></returns>
     bool CheckValidBridgePosition(Vector3 pos){
 		GameTile t = GetTileAtPosition(pos);
 		if (t != null) {
@@ -117,7 +133,11 @@ public class LevelInstance : MonoBehaviour {
 		}
 	}
 
-    //Make sure that the tile is not occupied by a balloon or a bridge.
+    /// <summary>
+    /// Checks if the tile is empty.
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <returns></returns>
     bool CheckValidBalloonPosition(Vector3 pos){
 		GameTile t = GetTileAtPosition(pos);
 		if (t == null) {
@@ -134,8 +154,9 @@ public class LevelInstance : MonoBehaviour {
     //Activate an event.
     void DoEvent(/*event*/){}
 
-    //Destroy everything in this class and tell the game manager to bring in
-    // the next level.
+	/// <summary>
+	/// Not yet implemented.
+	/// </summary>
     void DestroyLevel() {}
 
 
