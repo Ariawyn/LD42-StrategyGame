@@ -56,7 +56,7 @@ public class TurnController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-		if(inputManager.GetKeyDown("EndTurn")) 
+		if(inputManager.GetKeyDown("End_Turn")) 
         {
 			this.EndTurn();
 		}
