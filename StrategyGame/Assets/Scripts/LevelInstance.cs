@@ -11,7 +11,9 @@ public class LevelInstance : MonoBehaviour {
     GameObject p2StartCell;
     GameObject targetCell;
     //Reference to current turn?
-    Camera cam;
+    // Camera cam;
+
+	public GameObject bridgePrefab;
 
 
     void Start() {
@@ -86,10 +88,19 @@ public class LevelInstance : MonoBehaviour {
     }
 
     /// <summary>
-    /// Don't use this yet.
+    /// Checks if the position is valid for a bridge and places it.
+	/// Returns true if it succeeded.
     /// </summary>
     /// <param name="pos"></param>
-    public void PlaceTileAtPosition(Vector3 pos /*tiletype*/){}
+    public bool PlaceBridgeAtPosition(Vector3 pos){
+		if (CheckValidBridgePosition(pos) == false)
+			return false;
+		else{
+			GameObject newBridge = (GameObject)Instantiate(bridgePrefab);
+			newBridge.transform.SetParent(this.transform);
+			return true;
+		}
+	}
 
     /// <summary>
     /// Gets a tile at the position, or returns null.
@@ -157,7 +168,9 @@ public class LevelInstance : MonoBehaviour {
 	/// <summary>
 	/// Not yet implemented.
 	/// </summary>
-    void DestroyLevel() {}
+    void DestroyLevel() {
+		Destroy(tileMap);
+	}
 
 
 }

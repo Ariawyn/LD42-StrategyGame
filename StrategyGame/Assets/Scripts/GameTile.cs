@@ -52,15 +52,25 @@ public class GameTile : MonoBehaviour {
 	/// Sets a prefab specified as the child of this object.
 	/// </summary>
 	/// <param name="prefab"></param>
-	public void PlaceObjectOnThisTile(GameObject prefab) {
+	public bool PlaceObjectOnThisTile(GameObject prefab) {
 		if (occupyingObject != null) {
 			Debug.Log("That tile is occupied!");
-			return;
+			return false;
 		}
 		else {
 			GameObject o = (GameObject)Instantiate(prefab);
 			o.transform.SetParent(this.transform);
+			return true;
 		}
+	}
+
+	public void RemoveObjectOnThisTile() {
+		if (occupyingObject == null) {
+			Debug.Log("No occupying object to destroy!");
+			return;
+		}
+		Destroy(this.occupyingObject);
+		this.occupyingObject = null;
 	}
 
 	/// <summary>

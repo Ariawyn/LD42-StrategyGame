@@ -1,0 +1,116 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ActionManager : MonoBehaviour {
+
+	GameManager gm;
+	LevelInstance li;
+	Camera cam;
+
+	GameTile selectedTile;
+	
+
+	public int baseActionPoints = 4;
+	int actionPointsThisTurn = 4;
+
+	public int apToBuildBridge = 4;
+	public int apToBuildBalloon = 2;
+	public int apToBuildCannon = 4;
+	public int apToFireCannon = 2;
+
+	/* We need to choose a tile, activate an option menu, register an option, tell the tile/manager
+	what to do, subtract the action points for this turn, register when the action points are zero,
+	 and then tell the gm that the turn is over. */
+
+	void Awake() {
+		cam = Camera.main;
+	}
+
+	void OnTurnStart() {
+		actionPointsThisTurn = baseActionPoints;
+		selectedTile = null;
+	}
+
+	void EndTurn() {
+		//Pass turn
+	}
+
+	GameTile SelectTile(Vector3 pos) {
+		return li.GetTileAtPosition(pos);
+	}
+
+	void RegisterBuildBalloon(GameObject toBuildPrefab) {
+		if (actionPointsThisTurn - apToBuildBalloon <0){
+			Debug.Log("Not enough AP");
+			return;
+		}
+		if (selectedTile.PlaceObjectOnThisTile(toBuildPrefab) == false) {
+			// Don't do the stuff
+		}
+		else {
+			SubtractAP(apToBuildBalloon);
+		}
+	}
+
+	void RegisterBuildCannon(GameObject toBuildPrefab) {
+		if (actionPointsThisTurn - apToBuildCannon < 0) {
+			Debug.Log("Not enough AP!");
+			return;
+		}
+		if (selectedTile.PlaceObjectOnThisTile(toBuildPrefab) == false) {
+			//Don't do the stuff
+		}
+		else {
+			SubtractAP(apToBuildCannon);
+		}
+	}
+
+	void RegisterBuildBridge(Vector3 pos) {
+		if (actionPointsThisTurn - apToBuildBridge < 0) {
+			Debug.Log("Not enough AP");
+			return;
+		}
+		bool passed = li.PlaceBridgeAtPosition(pos);
+		if (passed) {
+			SubtractAP(apToBuildBridge);
+		}
+		else {
+			//Don't do the stuff.
+			Debug.Log("Bridge building failed due to some issue with position.");
+		}
+	}
+
+	void RegisterFireAction(Vector3 target) {
+		if (actionPointsThisTurn - apToFireCannon < 0 ) {
+			Debug.Log("Not enough AP!");
+			return;
+		}
+		GameTile targetTile = SelectTile(target);
+		PlaceableObjectType t = targetTile.GetOccupyingObjectType();
+		if (t == PlaceableObjectType.BALLOON) {
+			targetTile.RemoveObjectOnThisTile();
+		}
+	}
+
+	bool SubtractAP(int toSub) {
+		if (actionPointsThisTurn - toSub >= 0){
+			actionPointsThisTurn -= toSub;
+			if (actionPointsThisTurn <= 0) {
+				EndTurn();
+			}
+			return true;
+		}
+		return false;
+	}
+
+	void Update() {
+		Vector3 mousePos = Input.mousePosition;
+		Vector3 mousePosWorld = cam.ScreenToWorldPoint(mousePos);
+
+		if (Input.GetMouseButtonDown(0))
+			selectedTile = SelectTile(mousePosWorld);
+	}
+
+	
+}
