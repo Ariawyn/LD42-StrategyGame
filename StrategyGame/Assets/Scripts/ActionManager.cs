@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class ActionManager : MonoBehaviour {
 
-	GameManager gm;
-	LevelInstance li;
+	public GameManager gm;
+	public LevelInstance li;
 	Camera cam;
 
 	GameTile selectedTile;
+	Vector3 selectedPosition;
 	
 
 	public int baseActionPoints = 4;
@@ -18,6 +19,11 @@ public class ActionManager : MonoBehaviour {
 	public int apToBuildBalloon = 2;
 	public int apToBuildCannon = 4;
 	public int apToFireCannon = 2;
+
+	public ActionUI ui;
+
+	public GameObject cannonPrefab;
+	public GameObject balloonPrefab;
 
 	/* We need to choose a tile, activate an option menu, register an option, tell the tile/manager
 	what to do, subtract the action points for this turn, register when the action points are zero,
@@ -40,12 +46,13 @@ public class ActionManager : MonoBehaviour {
 		return li.GetTileAtPosition(pos);
 	}
 
-	void RegisterBuildBalloon(GameObject toBuildPrefab) {
+	public void RegisterBuildBalloon() {
+		Debug.Log("Register build balloon and selected tile is " + selectedTile);
 		if (actionPointsThisTurn - apToBuildBalloon <0){
 			Debug.Log("Not enough AP");
 			return;
 		}
-		if (selectedTile.PlaceObjectOnThisTile(toBuildPrefab) == false) {
+		if (selectedTile.PlaceObjectOnThisTile(balloonPrefab) == false) {
 			// Don't do the stuff
 		}
 		else {
@@ -53,12 +60,12 @@ public class ActionManager : MonoBehaviour {
 		}
 	}
 
-	void RegisterBuildCannon(GameObject toBuildPrefab) {
+	public void RegisterBuildCannon() {
 		if (actionPointsThisTurn - apToBuildCannon < 0) {
 			Debug.Log("Not enough AP!");
 			return;
 		}
-		if (selectedTile.PlaceObjectOnThisTile(toBuildPrefab) == false) {
+		if (selectedTile.PlaceObjectOnThisTile(cannonPrefab) == false) {
 			//Don't do the stuff
 		}
 		else {
@@ -66,7 +73,8 @@ public class ActionManager : MonoBehaviour {
 		}
 	}
 
-	void RegisterBuildBridge(Vector3 pos) {
+	public void RegisterBuildBridge(Vector3 pos) {
+
 		if (actionPointsThisTurn - apToBuildBridge < 0) {
 			Debug.Log("Not enough AP");
 			return;
@@ -81,7 +89,7 @@ public class ActionManager : MonoBehaviour {
 		}
 	}
 
-	void RegisterFireAction(Vector3 target) {
+	public void RegisterFireAction(Vector3 target) {
 		if (actionPointsThisTurn - apToFireCannon < 0 ) {
 			Debug.Log("Not enough AP!");
 			return;
@@ -108,8 +116,20 @@ public class ActionManager : MonoBehaviour {
 		Vector3 mousePos = Input.mousePosition;
 		Vector3 mousePosWorld = cam.ScreenToWorldPoint(mousePos);
 
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0)) {
 			selectedTile = SelectTile(mousePosWorld);
+			selectedPosition = mousePosWorld;
+			CheckValidBuildOptions();
+			ui.OpenMenu(selectedPosition);
+		}
+	}
+
+	void CheckValidBuildOptions() {
+		ui.canBalloon = li.CheckValidBalloonPosition(selectedPosition);
+		ui.canCannon = ui.canBalloon;
+		ui.canBridge = li.CheckValidBridgePosition(selectedPosition);
+		ui.canFire = (selectedTile == null) ? false : selectedTile.GetOccupyingObjectType() == PlaceableObjectType.CANNON;
+		
 	}
 
 	

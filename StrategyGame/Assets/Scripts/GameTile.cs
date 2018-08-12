@@ -53,6 +53,7 @@ public class GameTile : MonoBehaviour {
 	/// </summary>
 	/// <param name="prefab"></param>
 	public bool PlaceObjectOnThisTile(GameObject prefab) {
+		Debug.Log("I was called");
 		if (occupyingObject != null) {
 			Debug.Log("That tile is occupied!");
 			return false;
@@ -112,5 +113,6 @@ public enum PlaceableObjectType
 {
 	NULL,
 	BALLOON,
+	CANNON,
 	FACTORY
 }

@@ -14,11 +14,12 @@ public class LevelInstance : MonoBehaviour {
     // Camera cam;
 
 	public GameObject bridgePrefab;
+	
 
 
     void Start() {
         InstantiateLevel();
-        cam = Camera.main;
+        // cam = Camera.main;
     }
     // Just for testing
     void Update() {
@@ -125,13 +126,13 @@ public class LevelInstance : MonoBehaviour {
     /// </summary>
     /// <param name="pos"></param>
     /// <returns></returns>
-    bool CheckValidBridgePosition(Vector3 pos){
+    public bool CheckValidBridgePosition(Vector3 pos){
 		GameTile t = GetTileAtPosition(pos);
 		if (t != null) {
 			return false;
 		}
 		else {
-			List<GameTile> tAdj = t.GetAdjacentTiles();
+			List<GameTile> tAdj = GetTilesAdjacentToPosition(pos);
 			foreach (GameTile gt in tAdj) {
 				if (gt.GetOccupyingObjectType() == PlaceableObjectType.BALLOON) {
 					return true;
@@ -149,7 +150,7 @@ public class LevelInstance : MonoBehaviour {
     /// </summary>
     /// <param name="pos"></param>
     /// <returns></returns>
-    bool CheckValidBalloonPosition(Vector3 pos){
+    public bool CheckValidBalloonPosition(Vector3 pos){
 		GameTile t = GetTileAtPosition(pos);
 		if (t == null) {
 			return false;
