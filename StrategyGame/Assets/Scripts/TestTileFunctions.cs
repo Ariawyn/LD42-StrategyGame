@@ -14,16 +14,16 @@ public class TestTileFunctions : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 pos = Input.mousePosition;
-		Vector3 worldPos = cam.ScreenToWorldPoint(pos);
-		if (Input.GetMouseButtonDown(0)) {
-			l.GetTileAtPosition(worldPos);
-		}
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			l.GetTilesAdjacentToPosition(worldPos);
-		}
-		if (Input.GetKeyDown(KeyCode.D)) {
-			l.DestroyTileAtPosition(worldPos);
-		}
+		// Vector3 pos = Input.mousePosition;
+		// Vector3 worldPos = cam.ScreenToWorldPoint(pos);
+		// if (Input.GetMouseButtonDown(0)) {
+		// 	l.GetTileAtPosition(worldPos);
+		// }
+		// if (Input.GetKeyDown(KeyCode.Space)) {
+		// 	l.GetTilesAdjacentToPosition(worldPos);
+		// }
+		// if (Input.GetKeyDown(KeyCode.D)) {
+		// 	l.DestroyTileAtPosition(worldPos);
+		// }
 	}
 }
