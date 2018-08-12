@@ -119,6 +119,7 @@ public class ActionManager : MonoBehaviour {
 	void Update() {
 		Vector3 mousePos = Input.mousePosition;
 		Vector3 mousePosWorld = cam.ScreenToWorldPoint(mousePos);
+		mousePosWorld = ToTileCoords(mousePosWorld);
 
 		if (Input.GetMouseButtonDown(0)) {
 			if (eventSystem.IsPointerOverGameObject()){
@@ -126,7 +127,7 @@ public class ActionManager : MonoBehaviour {
 			}
 			else {
 				selectedTile = SelectTile(mousePosWorld);
-				selectedPosition = ToTileCoords(mousePosWorld);
+				selectedPosition = mousePosWorld;
 				CheckValidBuildOptions();
 				ui.OpenMenu(selectedPosition);
 			}
