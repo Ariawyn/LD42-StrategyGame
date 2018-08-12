@@ -1,35 +1,35 @@
 {
     "keys": [
         {
-            "keyName": "Forward",
+            "keyName": "Camera_Up",
             "keyValue": "W"
         },
         {
-            "keyName": "Backward",
+            "keyName": "Camera_Down",
             "keyValue": "S"
         },
         {
-            "keyName": "Left",
+            "keyName": "Camera_Left",
             "keyValue": "A"
         },
         {
-            "keyName": "Right",
+            "keyName": "Camera_Right",
             "keyValue": "D"
         },
         {
-            "keyName": "alt_Forward",
+            "keyName": "alt_Camera_Up",
             "keyValue": "UpArrow"
         },
         {
-            "keyName": "alt_Backward",
+            "keyName": "alt_Camera_Down",
             "keyValue": "DownArrow"
         },
         {
-            "keyName": "alt_Left",
+            "keyName": "alt_Camera_Left",
             "keyValue": "LeftArrow"
         },
         {
-            "keyName": "alt_Right",
+            "keyName": "alt_Camera_Right",
             "keyValue": "RightArrow"
         },
         {
@@ -37,7 +37,7 @@
             "keyValue": "F"
         },
         {
-            "keyName": "EndTurn",
+            "keyName": "End_Turn",
             "keyValue": "Space"
         }
     ]

@@ -48,28 +48,28 @@ public class InputManager : MonoBehaviour {
 			Debug.Log("No control scheme (or keys) was found saved, so we are defaulting to the default control scheme");
 
 			// Default movement controls
-			this.controls["Forward"] = KeyCode.W;
-			this.controls["Backward"] = KeyCode.S;
-			this.controls["Left"] = KeyCode.A;
-			this.controls["Right"] = KeyCode.D;
+			this.controls["Camera_Up"] = KeyCode.W;
+			this.controls["Camera_Down"] = KeyCode.S;
+			this.controls["Camera_Left"] = KeyCode.A;
+			this.controls["Camera_Right"] = KeyCode.D;
 
 			// Alternative movement controls
-			this.controls["alt_Forward"] = KeyCode.UpArrow;
-			this.controls["alt_Backward"] = KeyCode.DownArrow;
-			this.controls["alt_Left"] = KeyCode.LeftArrow;
-			this.controls["alt_Right"] = KeyCode.RightArrow;
+			this.controls["alt_Camera_Up"] = KeyCode.UpArrow;
+			this.controls["alt_Camera_Down"] = KeyCode.DownArrow;
+			this.controls["alt_Camera_Left"] = KeyCode.LeftArrow;
+			this.controls["alt_Camera_Right"] = KeyCode.RightArrow;
 
 			// Interaction controls
 			this.controls["Interact"] = KeyCode.F;
-			this.controls["EndTurn"] = KeyCode.Space;
+			this.controls["End_Turn"] = KeyCode.Space;
 
 			// Save the default controls
 			this.saveKeyLayout();
 		}
 
 		// TODO: Initialize movement input axis
-		this.horizontal = new InputAxis(this.controls["Right"], this.controls["Left"], this.controls["alt_Right"], this.controls["alt_Left"]);
-		this.vertical = new InputAxis(this.controls["Forward"], this.controls["Backward"], this.controls["alt_Forward"], this.controls["alt_Backward"]);
+		this.horizontal = new InputAxis(this.controls["Camera_Right"], this.controls["Camera_Left"], this.controls["alt_Camera_Right"], this.controls["alt_Camera_Left"]);
+		this.vertical = new InputAxis(this.controls["Camera_Up"], this.controls["Camera_Down"], this.controls["alt_Camera_Up"], this.controls["alt_Camera_Down"]);
 	}
 
 	public bool GetKey(string key) 

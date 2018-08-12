@@ -22,6 +22,7 @@ public class TurnController : MonoBehaviour
 
     public delegate void OnTurnEnd();
     public event OnTurnEnd onTurnEnd;
+    [HideInInspector] private bool hasEndOTurnEffect;
 
 
 	// Use this for initialization
@@ -45,6 +46,8 @@ public class TurnController : MonoBehaviour
 
         this.player1.SetName("First");
         this.player2.SetName("Second");
+
+        this.hasEndOTurnEffect = false;
 
         Debug.Log("Player 1 Name: " + this.player1.GetName());
         Debug.Log("Player 2 Name: " + this.player2.GetName());
@@ -115,11 +118,15 @@ public class TurnController : MonoBehaviour
         }
 
         // Call any functions that have an effect at the end of a turn
-        this.onTurnEnd();
+        if(this.hasEndOTurnEffect)
+        {
+            this.onTurnEnd();
+        }
     }
 
     public void AddEndOfTurnEffect(OnTurnEnd onTurnEndEffectFunction)
     {
         this.onTurnEnd += onTurnEndEffectFunction;
+        this.hasEndOTurnEffect = true;
     }
 }

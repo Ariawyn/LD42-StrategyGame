@@ -19,6 +19,6 @@ public class PreloadBehaviour : MonoBehaviour {
 		//this.gameManager = GetComponent<GameManager>();
 		
 		//TODO: After implementing game manager, ... use that basically instead of this
-		SceneManager.LoadScene("main");
+		SceneManager.LoadScene("Match");
 	}
 }
