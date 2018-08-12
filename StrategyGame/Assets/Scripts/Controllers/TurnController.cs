@@ -14,11 +14,15 @@ public class TurnController : MonoBehaviour
 
     [HideInInspector] private string activePlayerName;
 
-    [HideInInspector] private TurnController turnController;
 	[HideInInspector] private InputManager inputManager;
 
     [HideInInspector] private int turnCounter;
     [HideInInspector] private int maxAmountOfTurns;
+
+
+    public delegate void OnTurnEnd();
+    public event OnTurnEnd onTurnEnd;
+
 
 	// Use this for initialization
 	void Start () 
@@ -109,5 +113,13 @@ public class TurnController : MonoBehaviour
 
             Debug.Log("Turn: " + this.turnCounter + " Player: " + this.activePlayerName);
         }
+
+        // Call any functions that have an effect at the end of a turn
+        this.onTurnEnd();
+    }
+
+    public void AddEndOfTurnEffect(OnTurnEnd onTurnEndEffectFunction)
+    {
+        this.onTurnEnd += onTurnEndEffectFunction;
     }
 }

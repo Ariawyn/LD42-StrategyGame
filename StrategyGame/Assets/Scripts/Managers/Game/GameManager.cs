@@ -14,15 +14,6 @@ public class GameManager : MonoBehaviour
 
 	private GAME_STATE state;
 
-	[HideInInspector] private string player1;
-	[HideInInspector] private string player2;
-
-	[HideInInspector] private int actionsPerTurn = 3;
-	[HideInInspector] private int currentTurn;
-	[HideInInspector] private int maximumAmountOfTurns = 30;
-	[HideInInspector] private string currentActivePlayer;
-
-
 	// Use this for initialization
 	void Start () 
 	{
@@ -49,6 +40,8 @@ public class GameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update() 
 	{
+		// If the game has moved in to the match state, then we need to start the match through the turn controller
+		// As such, we need to fetch the turn controller instance from the match scene
 		if(this.state == GAME_STATE.IN_MATCH && this.turnControllerInstance == null) 
 		{
 			this.turnControllerGameObject = GameObject.FindGameObjectWithTag("TurnController");
@@ -65,15 +58,11 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	// Move into the match scene
 	void StartMatch()
 	{
 		this.state = GAME_STATE.IN_MATCH;
 		
 		// TODO: Change scene into match scene
-	}
-
-	public GAME_STATE GetState()
-	{
-		return this.state;
 	}
 }
