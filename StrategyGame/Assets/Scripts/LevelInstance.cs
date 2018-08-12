@@ -52,22 +52,22 @@ public class LevelInstance : MonoBehaviour {
 			List<GameTile> adjacentTiles = new List<GameTile>();
 
 		
-			RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
+			RaycastHit2D hit = Physics2D.Raycast(position, Vector2.up);
 			if (hit.collider != null) {
 				GameTile t = hit.collider.gameObject.GetComponent<GameTile>();
 				adjacentTiles.Add(t);
 			}
-			hit = Physics2D.Raycast(transform.position, Vector2.right);
+			hit = Physics2D.Raycast(position, Vector2.right);
 			if (hit.collider != null) {
 				GameTile t = hit.collider.gameObject.GetComponent<GameTile>();
 				adjacentTiles.Add(t);
 			}
-			hit = Physics2D.Raycast(transform.position, Vector2.down);
+			hit = Physics2D.Raycast(position, Vector2.down);
 			if (hit.collider != null) {
 				GameTile t = hit.collider.gameObject.GetComponent<GameTile>();
 				adjacentTiles.Add(t);
 			}
-			hit = Physics2D.Raycast(transform.position, Vector2.left);
+			hit = Physics2D.Raycast(position, Vector2.left);
 			if (hit.collider != null) {
 				GameTile t = hit.collider.gameObject.GetComponent<GameTile>();
 				adjacentTiles.Add(t);
@@ -94,10 +94,13 @@ public class LevelInstance : MonoBehaviour {
     /// </summary>
     /// <param name="pos"></param>
     public bool PlaceBridgeAtPosition(Vector3 pos){
+		Debug.Log("Register build bridge");
 		if (CheckValidBridgePosition(pos) == false)
 			return false;
 		else{
+			Debug.Log("Valid bridge position check succeeded");
 			GameObject newBridge = (GameObject)Instantiate(bridgePrefab);
+			newBridge.transform.position = pos;
 			newBridge.transform.SetParent(this.transform);
 			return true;
 		}
@@ -134,11 +137,10 @@ public class LevelInstance : MonoBehaviour {
 		else {
 			List<GameTile> tAdj = GetTilesAdjacentToPosition(pos);
 			foreach (GameTile gt in tAdj) {
-				if (gt.GetOccupyingObjectType() == PlaceableObjectType.BALLOON) {
+				Debug.Log(gt.gameObject.name);
+				if (gt.GetOccupyingObjectType() == PlaceableObjectType.BALLOON || gt.GetOccupyingObjectType() == PlaceableObjectType.BRIDGE) {
+					Debug.Log("An adjacent tile has a balloon!");
 					return true;
-				}
-				else {
-					continue;
 				}
 			}
 			return false;

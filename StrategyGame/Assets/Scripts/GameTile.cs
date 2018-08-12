@@ -15,6 +15,8 @@ public class GameTile : MonoBehaviour {
 
 	BoxCollider2D myCollider;
 
+	public bool isBridge;
+
 	void Awake() {
 		myLocation = transform.position;
 		if (transform.childCount > 0) {
@@ -53,6 +55,10 @@ public class GameTile : MonoBehaviour {
 	/// </summary>
 	/// <param name="prefab"></param>
 	public bool PlaceObjectOnThisTile(GameObject prefab) {
+		if (isBridge){
+			Debug.Log("I'm a bridge, don't put anything on me");
+			return false;
+		}
 		Debug.Log("I was called");
 		if (occupyingObject != null) {
 			Debug.Log("That tile is occupied!");
@@ -61,6 +67,8 @@ public class GameTile : MonoBehaviour {
 		else {
 			GameObject o = (GameObject)Instantiate(prefab);
 			o.transform.SetParent(this.transform);
+			o.transform.localPosition = new Vector3(0,0,1);
+			occupyingObject = o;
 			return true;
 		}
 	}
@@ -114,5 +122,6 @@ public enum PlaceableObjectType
 	NULL,
 	BALLOON,
 	CANNON,
+	BRIDGE,
 	FACTORY
 }

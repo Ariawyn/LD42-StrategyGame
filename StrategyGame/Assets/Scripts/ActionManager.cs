@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ActionManager : MonoBehaviour {
 
@@ -25,12 +26,15 @@ public class ActionManager : MonoBehaviour {
 	public GameObject cannonPrefab;
 	public GameObject balloonPrefab;
 
+	public EventSystem eventSystem;
+
 	/* We need to choose a tile, activate an option menu, register an option, tell the tile/manager
 	what to do, subtract the action points for this turn, register when the action points are zero,
 	 and then tell the gm that the turn is over. */
 
 	void Awake() {
 		cam = Camera.main;
+		OnTurnStart();
 	}
 
 	void OnTurnStart() {
@@ -73,13 +77,13 @@ public class ActionManager : MonoBehaviour {
 		}
 	}
 
-	public void RegisterBuildBridge(Vector3 pos) {
-
+	public void RegisterBuildBridge() {
+		
 		if (actionPointsThisTurn - apToBuildBridge < 0) {
 			Debug.Log("Not enough AP");
 			return;
 		}
-		bool passed = li.PlaceBridgeAtPosition(pos);
+		bool passed = li.PlaceBridgeAtPosition(ToTileCoords(selectedPosition));
 		if (passed) {
 			SubtractAP(apToBuildBridge);
 		}
@@ -117,10 +121,15 @@ public class ActionManager : MonoBehaviour {
 		Vector3 mousePosWorld = cam.ScreenToWorldPoint(mousePos);
 
 		if (Input.GetMouseButtonDown(0)) {
-			selectedTile = SelectTile(mousePosWorld);
-			selectedPosition = mousePosWorld;
-			CheckValidBuildOptions();
-			ui.OpenMenu(selectedPosition);
+			if (eventSystem.IsPointerOverGameObject()){
+				//nothing
+			}
+			else {
+				selectedTile = SelectTile(mousePosWorld);
+				selectedPosition = ToTileCoords(mousePosWorld);
+				CheckValidBuildOptions();
+				ui.OpenMenu(selectedPosition);
+			}
 		}
 	}
 
@@ -130,6 +139,11 @@ public class ActionManager : MonoBehaviour {
 		ui.canBridge = li.CheckValidBridgePosition(selectedPosition);
 		ui.canFire = (selectedTile == null) ? false : selectedTile.GetOccupyingObjectType() == PlaceableObjectType.CANNON;
 		
+	}
+
+	Vector3 ToTileCoords(Vector3 pt) {
+		Vector3 newPos = new Vector3(Mathf.RoundToInt(pt.x), Mathf.RoundToInt(pt.y), 0);
+		return newPos;
 	}
 
 	
