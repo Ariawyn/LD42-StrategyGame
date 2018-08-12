@@ -181,7 +181,10 @@ public class LevelInstance : MonoBehaviour {
 	void Decay() {
 		for (int i = 0; i < numTilesToDecayPerTurn; i++) {
 			int rand = Random.Range(0,interactableTileHolder.childCount);
-			interactableTileHolder.GetChild(rand).GetComponent<GameTile>().DestroyTile();
+			GameTile gt = interactableTileHolder.GetChild(rand).GetComponent<GameTile>();
+			if (gt.occupyingObject == null) {
+				gt.DestroyTile();
+			}
 			interactableTileCount = interactableTileHolder.childCount;
 			// Debug.Log("Tally one deleted");
 		}
