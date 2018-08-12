@@ -128,4 +128,16 @@ public class TurnController : MonoBehaviour
         this.hasEndOTurnEffect = true;
         Debug.Log("End of turn effect added!");
     }
+
+    public PlayerController getActivePlayer()
+    {
+        if(this.Player1Controller.GetActiveState() == true)
+        {
+            return this.Player1Controller;
+        }
+        else
+        {
+            return this.Player2Controller;
+        }
+    }
 }
