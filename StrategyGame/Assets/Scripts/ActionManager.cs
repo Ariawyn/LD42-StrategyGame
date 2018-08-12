@@ -28,6 +28,8 @@ public class ActionManager : MonoBehaviour {
 
 	public EventSystem eventSystem;
 
+	bool selectingFireTarget = false;
+
 	/* We need to choose a tile, activate an option menu, register an option, tell the tile/manager
 	what to do, subtract the action points for this turn, register when the action points are zero,
 	 and then tell the gm that the turn is over. */
@@ -93,15 +95,21 @@ public class ActionManager : MonoBehaviour {
 		}
 	}
 
-	public void RegisterFireAction(Vector3 target) {
+	public void RegisterFireAction() {
+		Debug.Log("Fire action registered");
 		if (actionPointsThisTurn - apToFireCannon < 0 ) {
 			Debug.Log("Not enough AP!");
 			return;
 		}
-		GameTile targetTile = SelectTile(target);
+		GameTile targetTile = SelectTile(selectedPosition);
 		PlaceableObjectType t = targetTile.GetOccupyingObjectType();
 		if (t == PlaceableObjectType.BALLOON) {
+			Debug.Log("That's a valid thing to destroy");
 			targetTile.RemoveObjectOnThisTile();
+			SubtractAP(apToFireCannon);
+		}
+		else {
+			Debug.Log("That's not a balloon");
 		}
 	}
 
@@ -128,10 +136,30 @@ public class ActionManager : MonoBehaviour {
 			else {
 				selectedTile = SelectTile(mousePosWorld);
 				selectedPosition = mousePosWorld;
-				CheckValidBuildOptions();
-				ui.OpenMenu(selectedPosition);
+				if (!selectingFireTarget){
+					CheckValidBuildOptions();
+					ui.OpenMenu(selectedPosition);
+				}
 			}
 		}
+	}
+
+	IEnumerator SelectTargetToFire() {
+		Debug.Log("Coroutine started");
+		selectingFireTarget = true;
+		while(selectingFireTarget){
+			if (Input.GetMouseButtonDown(0)) {
+				RegisterFireAction();
+				selectingFireTarget = false;
+				
+			}
+			yield return null;
+		}
+	}
+
+	public void StartSelectFireTarget() {
+		Debug.Log("Starting Coroutine");
+		StartCoroutine(SelectTargetToFire());
 	}
 
 	void CheckValidBuildOptions() {

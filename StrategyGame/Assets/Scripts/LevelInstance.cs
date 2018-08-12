@@ -14,26 +14,39 @@ public class LevelInstance : MonoBehaviour {
     // Camera cam;
 
 	public GameObject bridgePrefab;
+
+	TurnController turnController;
+	public Transform interactableTileHolder;
+	int interactableTileCount;
+
+	public int numTilesToDecayPerTurn = 5;
 	
 
 
     void Start() {
         InstantiateLevel();
         // cam = Camera.main;
+		turnController = GameObject.FindGameObjectWithTag("TurnController").GetComponent<TurnController>();
+		turnController.AddEndOfTurnEffect(this.Decay);
+
+		interactableTileCount = interactableTileHolder.childCount;
+		
     }
     // Just for testing
     void Update() {
         // Vector3 mousePos = Input.mousePosition;
         // mousePos = cam.ScreenToWorldPoint(mousePos);
         // GetTileAtPosition(mousePos);
+		// if (Input.GetKeyDown(KeyCode.J))
+		// 	Decay();
     }
     
     /// <summary>
     /// Instantiates the level.
     /// </summary>
     void InstantiateLevel() {
-		tileMap = (GameObject)Instantiate(tileMapPrefab);
-		tileMap.transform.SetParent(this.transform);
+		// tileMap = (GameObject)Instantiate(tileMapPrefab);
+		// tileMap.transform.SetParent(this.transform);
     }
 
 	/// <summary>
@@ -162,6 +175,15 @@ public class LevelInstance : MonoBehaviour {
 				return true;
 			else
 				return false;
+		}
+	}
+
+	void Decay() {
+		for (int i = 0; i < numTilesToDecayPerTurn; i++) {
+			int rand = Random.Range(0,interactableTileHolder.childCount);
+			interactableTileHolder.GetChild(rand).GetComponent<GameTile>().DestroyTile();
+			interactableTileCount = interactableTileHolder.childCount;
+			// Debug.Log("Tally one deleted");
 		}
 	}
 

@@ -23,6 +23,7 @@ public class GameTile : MonoBehaviour {
 			occupyingObject = transform.GetChild(0).gameObject;
 		}
 		myCollider = GetComponent<BoxCollider2D>();
+
 	}
 
 	public void Update() {
@@ -48,6 +49,7 @@ public class GameTile : MonoBehaviour {
 	/// </summary>
 	public void DestroyTile() {
 		this.gameObject.SetActive(false);
+		Destroy(this.gameObject);
 	}
 
 	/// <summary>
