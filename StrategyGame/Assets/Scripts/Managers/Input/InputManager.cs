@@ -61,6 +61,7 @@ public class InputManager : MonoBehaviour {
 
 			// Interaction controls
 			this.controls["Interact"] = KeyCode.F;
+			this.controls["EndTurn"] = KeyCode.Space;
 
 			// Save the default controls
 			this.saveKeyLayout();

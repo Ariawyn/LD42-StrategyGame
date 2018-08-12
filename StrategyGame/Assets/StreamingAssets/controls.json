@@ -35,6 +35,10 @@
         {
             "keyName": "Interact",
             "keyValue": "F"
+        },
+        {
+            "keyName": "EndTurn",
+            "keyValue": "Space"
         }
     ]
 }
