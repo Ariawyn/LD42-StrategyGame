@@ -131,13 +131,13 @@ public class TurnController : MonoBehaviour
 
     public PlayerController getActivePlayer()
     {
-        if(this.Player1Controller.GetActiveState() == true)
+        if(this.player1.GetActiveState() == true)
         {
-            return this.Player1Controller;
+            return this.player1;
         }
         else
         {
-            return this.Player2Controller;
+            return this.player2;
         }
     }
 }
