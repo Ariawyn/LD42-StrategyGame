@@ -148,4 +148,22 @@ public class TurnController : MonoBehaviour
         else
             return player2;
     }
+
+	public void EndMatch() {
+        Debug.Log("Ending match from turn controller!");
+		int p1Score = GetSpecificPlayer(1).GetScore();
+		int p2Score = GetSpecificPlayer(2).GetScore();
+
+		if (p1Score == p2Score) {
+			//DRAW
+		}
+		else if (p1Score > p2Score) {
+			//P1 wins
+		}
+		else {
+			//P2 wins
+		}
+
+		//TODO: everything else for the end of the match
+	}
 }

@@ -98,4 +98,8 @@ public class PlayerController : MonoBehaviour
             this.onPointsChanged((this.GetName() == "First")? 1 : 2, myScore);
         }
     }
+
+    public int GetScore() {
+        return myScore;
+    }
 }
