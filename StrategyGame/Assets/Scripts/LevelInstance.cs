@@ -20,6 +20,8 @@ public class LevelInstance : MonoBehaviour {
 	int interactableTileCount;
 
 	public int numTilesToDecayPerTurn = 5;
+
+	
 	
 
 
@@ -182,7 +184,7 @@ public class LevelInstance : MonoBehaviour {
 		for (int i = 0; i < numTilesToDecayPerTurn; i++) {
 			int rand = Random.Range(0,interactableTileHolder.childCount);
 			GameTile gt = interactableTileHolder.GetChild(rand).GetComponent<GameTile>();
-			if (gt.occupyingObject == null) {
+			if (gt.myOwner == null) {
 				gt.DestroyTile();
 			}
 			interactableTileCount = interactableTileHolder.childCount;

@@ -129,15 +129,15 @@ public class TurnController : MonoBehaviour
         Debug.Log("End of turn effect added!");
     }
 
-    public PlayerController getActivePlayer()
+    public PlayerController GetActivePlayer()
     {
         if(this.player1.GetActiveState() == true)
         {
-            return this.player1;
+            return player1;
         }
         else
         {
-            return this.player2;
+            return player2;
         }
     }
 }

@@ -30,6 +30,9 @@ public class ActionManager : MonoBehaviour {
 
 	bool selectingFireTarget = false;
 
+	PlayerController activePlayer;
+	TurnController tc;
+
 	/* We need to choose a tile, activate an option menu, register an option, tell the tile/manager
 	what to do, subtract the action points for this turn, register when the action points are zero,
 	 and then tell the gm that the turn is over. */
@@ -37,6 +40,7 @@ public class ActionManager : MonoBehaviour {
 	void Awake() {
 		cam = Camera.main;
 		OnTurnStart();
+		tc = GameObject.FindGameObjectWithTag("TurnController").GetComponent<TurnController>();
 	}
 
 	void OnTurnStart() {
@@ -62,6 +66,15 @@ public class ActionManager : MonoBehaviour {
 			// Don't do the stuff
 		}
 		else {
+			PlayerController p = tc.GetActivePlayer();
+			List<GameTile> newLand = selectedTile.CalculateOwnership(p);
+			p.AddLandToList(newLand);
+			if (p.GetName() == "First") {
+				selectedTile.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.red;
+			}
+			else {
+				selectedTile.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.blue;
+			}
 			SubtractAP(apToBuildBalloon);
 		}
 	}
@@ -75,6 +88,13 @@ public class ActionManager : MonoBehaviour {
 			//Don't do the stuff
 		}
 		else {
+			PlayerController p = tc.GetActivePlayer();
+			if (p.GetName() == "First") {
+				selectedTile.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.red;
+			}
+			else {
+				selectedTile.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.blue;
+			}
 			SubtractAP(apToBuildCannon);
 		}
 	}

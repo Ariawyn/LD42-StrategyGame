@@ -17,6 +17,13 @@ public class GameTile : MonoBehaviour {
 
 	public bool isBridge;
 
+	public Sprite p1Balloon;
+	public Sprite p1Cannon;
+	public Sprite p2Balloon;
+	public Sprite p2Cannon;
+	
+	public PlayerController myOwner;
+
 	void Awake() {
 		myLocation = transform.position;
 		if (transform.childCount > 0) {
@@ -115,6 +122,33 @@ public class GameTile : MonoBehaviour {
 		myCollider.enabled = true;
 		return adjTiles;
 	}
+
+	public List<GameTile> CalculateOwnership(PlayerController newOwner) {
+		
+		List<GameTile> myAdj = GetAdjacentTiles();
+		List<GameTile> newOwnerList = new List<GameTile>();
+
+		foreach (GameTile gt in myAdj) {
+			if (gt.myOwner == null) {
+				gt.myOwner = newOwner;
+				newOwnerList.Add(gt);
+			}
+		}
+		if (this.myOwner == null){
+			this.myOwner = newOwner;
+			newOwnerList.Add(this);
+		}
+		return newOwnerList;
+		
+	}
+
+	// public List<GameTile> RevokeOwnership() {
+	// 	if (myOwner == null)
+	// 		return;
+
+	// 	List<GameTile> myAdj = GetAdjacentTiles();
+		
+	// }
 
 
 }

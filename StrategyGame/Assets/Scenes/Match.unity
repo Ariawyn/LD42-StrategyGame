@@ -181,6 +181,16 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224830499586429536, guid: b99e5f0a30aae4bfb8d5c821ac9b74ac,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 54
+      objectReference: {fileID: 0}
+    - target: {fileID: 224830499586429536, guid: b99e5f0a30aae4bfb8d5c821ac9b74ac,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: -365
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b99e5f0a30aae4bfb8d5c821ac9b74ac, type: 2}
   m_IsPrefabAsset: 0
@@ -288,6 +298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bcf5aaadea57cb4b91d4b880301b8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxSpritePrefab: {fileID: 1344323106957658, guid: 58b24359582e14ed19c8fbd634e9c758,
+    type: 2}
 --- !u!4 &714081593
 Transform:
   m_ObjectHideFlags: 0
@@ -328,6 +340,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bcf5aaadea57cb4b91d4b880301b8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxSpritePrefab: {fileID: 1344323106957658, guid: f5427a127f007483c81fa4e0bc0eb75d,
+    type: 2}
 --- !u!4 &735281818
 Transform:
   m_ObjectHideFlags: 0
