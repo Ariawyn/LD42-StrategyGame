@@ -140,22 +140,24 @@ public class GameTile : MonoBehaviour {
 		return adjTiles;
 	}
 
-	public List<GameTile> CalculateOwnership(PlayerController newOwner) {
+	public List<GameTile> CalculateOwnership(PlayerController newOwner, bool doesntClaim=false) {
 		
 		List<GameTile> myAdj = GetAdjacentTiles();
 		List<GameTile> newOwnerList = new List<GameTile>();
-
-		foreach (GameTile gt in myAdj) {
-			if (gt.myOwner == null) {
-				gt.myOwner = newOwner;
-				// Debug.Log("My name is " + gt + ". My owner is " + gt.myOwner);
-				newOwnerList.Add(gt);
-			}
-		}
 		if (this.myOwner == null){
 			this.myOwner = newOwner;
 			newOwnerList.Add(this);
 		}
+		if (!doesntClaim) {
+			foreach (GameTile gt in myAdj) {
+				if (gt.myOwner == null) {
+					gt.myOwner = newOwner;
+					// Debug.Log("My name is " + gt + ". My owner is " + gt.myOwner);
+					newOwnerList.Add(gt);
+				}
+			}
+		}
+		
 		SetBuildableTiles(newOwnerList, newOwner, true);
 		return newOwnerList;
 		

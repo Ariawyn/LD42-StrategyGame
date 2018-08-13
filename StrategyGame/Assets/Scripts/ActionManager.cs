@@ -89,6 +89,8 @@ public class ActionManager : MonoBehaviour {
 		}
 		else {
 			PlayerController p = tc.GetActivePlayer();
+			List<GameTile> tempList = selectedTile.CalculateOwnership(p, true);
+			p.AddLandToList(tempList);
 			if (p.GetName() == "First") {
 				selectedTile.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.red;
 			}
@@ -107,7 +109,13 @@ public class ActionManager : MonoBehaviour {
 		}
 		bool passed = li.PlaceBridgeAtPosition(ToTileCoords(selectedPosition));
 		if (passed) {
-			
+			List<GameTile> tempList = new List<GameTile>();
+			GameTile gt = li.GetTileAtPosition(selectedPosition);
+			// Debug.Log(gt.GetOccupyingObjectType());
+			PlayerController p = tc.GetActivePlayer();
+			tempList = gt.CalculateOwnership(p, true);
+			// tempList.Add(selectedTile);
+			p.AddLandToList(tempList);
 			SubtractAP(apToBuildBridge);
 		}
 		else {
