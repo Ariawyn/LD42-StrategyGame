@@ -62,7 +62,7 @@ public class ActionManager : MonoBehaviour {
 			Debug.Log("Not enough AP");
 			return;
 		}
-		if (selectedTile.PlaceObjectOnThisTile(balloonPrefab) == false) {
+		if (selectedTile.PlaceObjectOnThisTile(balloonPrefab, tc.GetActivePlayer()) == false ) {
 			// Don't do the stuff
 		}
 		else {
@@ -84,7 +84,7 @@ public class ActionManager : MonoBehaviour {
 			Debug.Log("Not enough AP!");
 			return;
 		}
-		if (selectedTile.PlaceObjectOnThisTile(cannonPrefab) == false) {
+		if (selectedTile.PlaceObjectOnThisTile(cannonPrefab, tc.GetActivePlayer()) == false) {
 			//Don't do the stuff
 		}
 		else {
@@ -107,6 +107,7 @@ public class ActionManager : MonoBehaviour {
 		}
 		bool passed = li.PlaceBridgeAtPosition(ToTileCoords(selectedPosition));
 		if (passed) {
+			
 			SubtractAP(apToBuildBridge);
 		}
 		else {
@@ -127,7 +128,7 @@ public class ActionManager : MonoBehaviour {
 			Debug.Log("That's a valid thing to destroy");
 			targetTile.RemoveObjectOnThisTile();
 			PlayerController p = targetTile.myOwner;
-			List<GameTile> toRemove = targetTile.RevokeOwnership();
+			List<GameTile> toRemove = targetTile.RevokeOwnership(tc.GetActivePlayer());
 			
 			p.RemoveFromLandList(toRemove);
 			SubtractAP(apToFireCannon);
@@ -169,7 +170,7 @@ public class ActionManager : MonoBehaviour {
 	}
 
 	IEnumerator SelectTargetToFire() {
-		Debug.Log("Coroutine started");
+		// Debug.Log("Coroutine started");
 		selectingFireTarget = true;
 		while(selectingFireTarget){
 			if (Input.GetMouseButtonDown(0)) {
@@ -182,7 +183,7 @@ public class ActionManager : MonoBehaviour {
 	}
 
 	public void StartSelectFireTarget() {
-		Debug.Log("Starting Coroutine");
+		// Debug.Log("Starting Coroutine");
 		StartCoroutine(SelectTargetToFire());
 	}
 

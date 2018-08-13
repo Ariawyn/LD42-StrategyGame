@@ -23,6 +23,9 @@ public class GameTile : MonoBehaviour {
 	public Sprite p2Cannon;
 	
 	public PlayerController myOwner;
+	
+	public bool p1Buildable;
+	public bool p2Buildable;
 
 	void Awake() {
 		myLocation = transform.position;
@@ -34,14 +37,14 @@ public class GameTile : MonoBehaviour {
 	}
 
 	public void Update() {
-		if (test) {
-			if (Input.GetKeyDown(KeyCode.F)){
-				List<GameTile> l = GetAdjacentTiles();
-				foreach (GameTile t in l) {
-					Debug.Log(t);
-				}
-			}
-		}
+		// if (test) {
+		// 	if (Input.GetKeyDown(KeyCode.F)){
+		// 		List<GameTile> l = GetAdjacentTiles();
+		// 		foreach (GameTile t in l) {
+		// 			Debug.Log(t);
+		// 		}
+		// 	}
+		// }
 	}
 
 	public PlaceableObjectType GetOccupyingObjectType() {
@@ -63,15 +66,21 @@ public class GameTile : MonoBehaviour {
 	/// Sets a prefab specified as the child of this object.
 	/// </summary>
 	/// <param name="prefab"></param>
-	public bool PlaceObjectOnThisTile(GameObject prefab) {
+	public bool PlaceObjectOnThisTile(GameObject prefab, PlayerController activePlayer) {
 		if (isBridge){
 			Debug.Log("I'm a bridge, don't put anything on me");
 			return false;
 		}
-		Debug.Log("I was called");
+		// Debug.Log("I was called");
 		if (occupyingObject != null) {
 			Debug.Log("That tile is occupied!");
 			return false;
+		}
+		Debug.Log("Active player name is " + activePlayer.name + ". p1 buildable is " + p1Buildable + " and p2 buildable is " + p2Buildable);
+		if ((activePlayer.name == "Player1Controller" && !p1Buildable) || (activePlayer.name == "Player2Controller" && !p2Buildable)) {
+			Debug.Log("That tile is not buildable by this player!");
+			return false; 
+			
 		}
 		else {
 			GameObject o = (GameObject)Instantiate(prefab);
@@ -131,7 +140,7 @@ public class GameTile : MonoBehaviour {
 		foreach (GameTile gt in myAdj) {
 			if (gt.myOwner == null) {
 				gt.myOwner = newOwner;
-				Debug.Log("My name is " + gt + ". My owner is " + gt.myOwner);
+				// Debug.Log("My name is " + gt + ". My owner is " + gt.myOwner);
 				newOwnerList.Add(gt);
 			}
 		}
@@ -139,11 +148,12 @@ public class GameTile : MonoBehaviour {
 			this.myOwner = newOwner;
 			newOwnerList.Add(this);
 		}
+		SetBuildableTiles(newOwnerList, newOwner, true);
 		return newOwnerList;
 		
 	}
 
-	public List<GameTile> RevokeOwnership() {
+	public List<GameTile> RevokeOwnership(PlayerController p) {
 		List<GameTile> toRemove = new List<GameTile>();
 		List<GameTile> myAdj = this.GetAdjacentTiles();
 		myAdj.Add(this);
@@ -161,8 +171,42 @@ public class GameTile : MonoBehaviour {
 				toRemove.Add(gt);
 			}
 		}
-
+		SetBuildableTiles(toRemove, p, false);
 		return toRemove;
+	}
+
+	void SetBuildableTiles(List<GameTile> gtList, PlayerController p, bool yes) {
+		// Debug.Log("Calculating buildable tiles");
+		int pnum = (p.name == "First") ? 1 : 2;
+
+		List<GameTile> adj = GetAdjacentTiles();
+		foreach (GameTile gt in gtList) {
+			// if (gt.myOwner != null) {
+			// 	return;
+			List<GameTile> gtAdj = gt.GetAdjacentTiles();
+			foreach (GameTile gt2 in gtAdj) {
+				if (gt2.myOwner != p) {
+					Debug.Log(gt2 + ": I can't be buildable because I have an owner!");
+					return;
+				}
+				else if (!adj.Contains(gt2)) {
+					if (pnum == 1)
+						gt2.p1Buildable = yes;
+					else
+						gt2.p2Buildable = yes;
+				}
+			}
+			if (gt.myOwner != p){
+				Debug.Log(gt + ": I can't be buildable because I have an owner!");
+				return;
+			}
+			else {
+				if (pnum == 1)
+					gt.p1Buildable = yes;
+				else
+					gt.p2Buildable = yes;
+			}
+		}
 	}
 
 

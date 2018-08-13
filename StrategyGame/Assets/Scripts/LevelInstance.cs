@@ -60,7 +60,7 @@ public class LevelInstance : MonoBehaviour {
 		GameTile ti = GetTileAtPosition(position);
 		if (ti != null) {
 			List<GameTile> adjacentTiles = ti.GetAdjacentTiles();
-			Debug.Log(adjacentTiles);
+			// Debug.Log(adjacentTiles);
 			return adjacentTiles;
 		}
 		else {
@@ -87,7 +87,7 @@ public class LevelInstance : MonoBehaviour {
 				GameTile t = hit.collider.gameObject.GetComponent<GameTile>();
 				adjacentTiles.Add(t);
 			}
-			Debug.Log(adjacentTiles);
+			// Debug.Log(adjacentTiles);
 			return adjacentTiles;
 		}
 		
@@ -109,14 +109,18 @@ public class LevelInstance : MonoBehaviour {
     /// </summary>
     /// <param name="pos"></param>
     public bool PlaceBridgeAtPosition(Vector3 pos){
-		Debug.Log("Register build bridge");
+		// Debug.Log("Register build bridge");
 		if (CheckValidBridgePosition(pos) == false)
 			return false;
 		else{
-			Debug.Log("Valid bridge position check succeeded");
+			// Debug.Log("Valid bridge position check succeeded");
 			GameObject newBridge = (GameObject)Instantiate(bridgePrefab);
 			newBridge.transform.position = pos;
 			newBridge.transform.SetParent(this.transform);
+			
+			PlayerController p = turnController.GetActivePlayer();
+			newBridge.GetComponent<GameTile>().CalculateOwnership(p);
+
 			return true;
 		}
 	}
@@ -129,7 +133,7 @@ public class LevelInstance : MonoBehaviour {
     public GameTile GetTileAtPosition(Vector3 pos){
         RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.up, 0.01f);
 		if (hit.collider != null) {
-			Debug.Log(hit.collider.gameObject);
+			// Debug.Log(hit.collider.gameObject);
 			return hit.collider.GetComponent<GameTile>();
 		}
 		else {
@@ -152,9 +156,9 @@ public class LevelInstance : MonoBehaviour {
 		else {
 			List<GameTile> tAdj = GetTilesAdjacentToPosition(pos);
 			foreach (GameTile gt in tAdj) {
-				Debug.Log(gt.gameObject.name);
-				if (gt.GetOccupyingObjectType() == PlaceableObjectType.BALLOON || gt.GetOccupyingObjectType() == PlaceableObjectType.BRIDGE) {
-					Debug.Log("An adjacent tile has a balloon!");
+				// Debug.Log(gt.gameObject.name);
+				if ((gt.GetOccupyingObjectType() == PlaceableObjectType.BALLOON || gt.GetOccupyingObjectType() == PlaceableObjectType.BRIDGE) && gt.myOwner == turnController.GetActivePlayer()) {
+					// Debug.Log("An adjacent tile has a balloon!");
 					return true;
 				}
 			}
