@@ -8,11 +8,13 @@ public class PlayerController : MonoBehaviour
     private string name;
     List<GameTile> myLand;
     public GameObject boxSpritePrefab;
+    Dictionary<GameTile, GameObject> boxDict;
 
     // Use this for initialization
 	void Start () 
     {
 		myLand = new List<GameTile>();
+        boxDict = new Dictionary<GameTile,GameObject>();
 	}
 	
 	// Update is called once per frame
@@ -52,6 +54,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log(name + " controls " + gt.name);
                 GameObject g = (GameObject)Instantiate(boxSpritePrefab);
                 g.transform.position = gt.transform.position;
+                boxDict.Add(gt, g);
             }
         }
     }
@@ -60,6 +63,7 @@ public class PlayerController : MonoBehaviour
         foreach (GameTile gt in land) {
             if (myLand.Contains(gt)) {
                 myLand.Remove(gt);
+                Destroy(boxDict[gt]);
             }
         }
     }

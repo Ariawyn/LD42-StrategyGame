@@ -126,6 +126,10 @@ public class ActionManager : MonoBehaviour {
 		if (t == PlaceableObjectType.BALLOON) {
 			Debug.Log("That's a valid thing to destroy");
 			targetTile.RemoveObjectOnThisTile();
+			PlayerController p = targetTile.myOwner;
+			List<GameTile> toRemove = targetTile.RevokeOwnership();
+			
+			p.RemoveFromLandList(toRemove);
 			SubtractAP(apToFireCannon);
 		}
 		else {

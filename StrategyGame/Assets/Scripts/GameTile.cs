@@ -131,6 +131,7 @@ public class GameTile : MonoBehaviour {
 		foreach (GameTile gt in myAdj) {
 			if (gt.myOwner == null) {
 				gt.myOwner = newOwner;
+				Debug.Log("My name is " + gt + ". My owner is " + gt.myOwner);
 				newOwnerList.Add(gt);
 			}
 		}
@@ -142,13 +143,35 @@ public class GameTile : MonoBehaviour {
 		
 	}
 
-	// public List<GameTile> RevokeOwnership() {
-	// 	if (myOwner == null)
-	// 		return;
+	public List<GameTile> RevokeOwnership() {
+		List<GameTile> toRemove = new List<GameTile>();
+		List<GameTile> myAdj = this.GetAdjacentTiles();
+		myAdj.Add(this);
+		// int c0 = 0;
+		foreach (GameTile gt in myAdj) {
+			List<GameTile> gtAdj = gt.GetAdjacentTiles();
+			int c = 0;
+			foreach (GameTile gt2 in gtAdj) {
+				if (gt2.myOwner == gt.myOwner && !myAdj.Contains(gt2)){
+					c++;
+					// Debug.Log("GT2 owner is " + gt2.myOwner + ". GT owner is " + gt.myOwner + ". GT2 is " + gt2 + ". GT is " + gt);
+				}
+			}
+			if (c <= 0) {
+				gt.myOwner = null;
+				toRemove.Add(gt);
+			}
+			// if (gt.myOwner == myOwner) {
+			// 	c0++;
+			// }
+		}
+		// if (c0 <= 0) {
+		// 	this.myOwner = null;
+		// 	toRemove.Add(this);
+		// }
 
-	// 	List<GameTile> myAdj = GetAdjacentTiles();
-		
-	// }
+		return toRemove;
+	}
 
 
 }
