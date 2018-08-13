@@ -7,8 +7,8 @@ public class LevelInstance : MonoBehaviour {
 	public GameObject tileMapPrefab;
 	GameObject tileMap;
     //Events
-    GameObject p1StartCell;
-    GameObject p2StartCell;
+    public GameTile p1StartCell;
+    public GameTile p2StartCell;
     GameObject targetCell;
     //Reference to current turn?
     // Camera cam;
@@ -35,7 +35,8 @@ public class LevelInstance : MonoBehaviour {
 		turnController.AddEndOfTurnEffect(this.Decay);
 
 		interactableTileCount = interactableTileHolder.childCount;
-		InstantiateLevel();
+		InstantiateLevel(1);
+		InstantiateLevel(2);
 		
     }
     // Just for testing
@@ -50,11 +51,11 @@ public class LevelInstance : MonoBehaviour {
     /// <summary>
     /// Instantiates the level.
     /// </summary>
-    void InstantiateLevel() {
+    void InstantiateLevel(int player) {
 		// tileMap = (GameObject)Instantiate(tileMapPrefab);
 		// tileMap.transform.SetParent(this.transform);
-		GameTile g = interactableTileHolder.GetChild(0).GetComponent<GameTile>();
-		PlayerController p = turnController.GetSpecificPlayer(1);
+		GameTile g = (player == 1) ? p1StartCell : p2StartCell;
+		PlayerController p = turnController.GetSpecificPlayer(player);
 		g.PlaceObjectOnThisTile(am.balloonPrefab, p, true);
 		List<GameTile> gl = g.CalculateOwnership(p);
 		Debug.Log(gl.Count);
