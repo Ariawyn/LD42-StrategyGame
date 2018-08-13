@@ -107,6 +107,7 @@ public class TurnController : MonoBehaviour
         if(this.turnCounter >= this.maxAmountOfTurns)
         {
             Debug.Log("Match hit maximum number of turns allowed!");
+            EndMatch();
         }
         else
         { 

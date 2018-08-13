@@ -249,7 +249,7 @@ Prefab:
     - target: {fileID: 224830499586429536, guid: b99e5f0a30aae4bfb8d5c821ac9b74ac,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: -302
+      value: -235
       objectReference: {fileID: 0}
     - target: {fileID: 1886082427079718, guid: b99e5f0a30aae4bfb8d5c821ac9b74ac, type: 2}
       propertyPath: m_IsActive
@@ -371,6 +371,11 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.y
       value: -365
+      objectReference: {fileID: 0}
+    - target: {fileID: 223767391287093824, guid: b99e5f0a30aae4bfb8d5c821ac9b74ac,
+        type: 2}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b99e5f0a30aae4bfb8d5c821ac9b74ac, type: 2}
