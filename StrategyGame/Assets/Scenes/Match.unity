@@ -385,6 +385,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b99e5f0a30aae4bfb8d5c821ac9b74ac, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &160457705 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114030794367379996, guid: b99e5f0a30aae4bfb8d5c821ac9b74ac,
+    type: 2}
+  m_PrefabInternal: {fileID: 160457704}
+  m_Script: {fileID: 11500000, guid: 31e5ab93a73494d6ea3bfbb613d06f9f, type: 3}
 --- !u!1 &185532306
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,7 +791,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Concede!
+  m_Text: Pass
 --- !u!222 &817342632
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -870,7 +876,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2031111731}
-        m_MethodName: EndMatch
+        m_MethodName: EndTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 160457705}
+        m_MethodName: CloseWindow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1252,6 +1269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ea84bbc133e8ae469be980dfcc77765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aui: {fileID: 160457705}
 --- !u!4 &2031111732
 Transform:
   m_ObjectHideFlags: 0

@@ -41,4 +41,9 @@ public class ActionUI : MonoBehaviour {
 		SetSelfActive((canBalloon || canBridge || canCannon || canFire));
 		SetActiveButtons();
 	}
+
+	public void CloseWindow() {
+		SetSelfActive(false);
+		// SetActiveButtons();
+	}
 }

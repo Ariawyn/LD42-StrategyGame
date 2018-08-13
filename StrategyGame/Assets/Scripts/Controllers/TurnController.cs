@@ -25,6 +25,7 @@ public class TurnController : MonoBehaviour
     [HideInInspector] private bool hasEndOTurnEffect = false;
 
     AudioManager am;
+    public ActionUI aui;
 
 
 	// Use this for initialization
@@ -107,6 +108,7 @@ public class TurnController : MonoBehaviour
 
         this.turnCounter++;
         am.Play("turnSFX");
+        aui.CloseWindow();
 
         if(this.turnCounter >= this.maxAmountOfTurns)
         {
