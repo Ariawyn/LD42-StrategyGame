@@ -19,7 +19,7 @@ public class LevelInstance : MonoBehaviour {
 	public Transform interactableTileHolder;
 	int interactableTileCount;
 
-	public int numTilesToDecayPerTurn = 5;
+	public int numTilesToDecayPerTurn = 3;
 
 	ActionManager am;
 

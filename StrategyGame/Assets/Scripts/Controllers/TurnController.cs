@@ -70,7 +70,7 @@ public class TurnController : MonoBehaviour
     public void StartMatch() 
     {
         this.turnCounter = 0;
-        this.maxAmountOfTurns = 40;
+        this.maxAmountOfTurns = 30;
 
         // TODO: Make who starts random
         this.player1.SetActiveState(true);
