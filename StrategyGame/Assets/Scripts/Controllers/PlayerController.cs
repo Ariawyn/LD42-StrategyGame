@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private bool isActive;
     private string name;
-    List<GameTile> myLand;
+    public List<GameTile> myLand;
     public GameObject boxSpritePrefab;
     Dictionary<GameTile, GameObject> boxDict;
 
