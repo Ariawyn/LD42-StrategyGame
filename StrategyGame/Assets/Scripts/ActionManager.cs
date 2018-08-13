@@ -34,6 +34,9 @@ public class ActionManager : MonoBehaviour {
 	TurnController tc;
 	AudioManager am;
 
+	public delegate void OnAPChanged(int ap);
+    public event OnAPChanged onAPChanged;
+
 	/* We need to choose a tile, activate an option menu, register an option, tell the tile/manager
 	what to do, subtract the action points for this turn, register when the action points are zero,
 	 and then tell the gm that the turn is over. */
@@ -43,11 +46,13 @@ public class ActionManager : MonoBehaviour {
 		OnTurnStart();
 		tc = GameObject.FindGameObjectWithTag("TurnController").GetComponent<TurnController>();
 		am = Object.FindObjectOfType<AudioManager>();
+		tc.AddEndOfTurnEffect(OnTurnStart);
 	}
 
 	void OnTurnStart() {
 		actionPointsThisTurn = baseActionPoints;
 		selectedTile = null;
+		SubtractAP(0);
 	}
 
 	void EndTurn() {
@@ -155,6 +160,9 @@ public class ActionManager : MonoBehaviour {
 	bool SubtractAP(int toSub) {
 		if (actionPointsThisTurn - toSub >= 0){
 			actionPointsThisTurn -= toSub;
+			if (onAPChanged != null) {
+				onAPChanged(actionPointsThisTurn);
+			}
 			if (actionPointsThisTurn <= 0) {
 				EndTurn();
 			}

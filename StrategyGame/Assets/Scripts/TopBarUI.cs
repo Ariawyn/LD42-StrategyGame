@@ -8,18 +8,21 @@ public class TopBarUI : MonoBehaviour {
 	public Text p1Points;
 	public Text p2Points;
 	public Text turnCounter;
+	public Text apText;
 
 	public int turnNum = 0;
 
 	public TurnController tc;
 	public PlayerController p1;
 	public PlayerController p2;
+	public ActionManager am;
 
 	// Use this for initialization
 	void Start () {
 		tc.AddEndOfTurnEffect(this.ChangeTurnNumber);
 		p1.onPointsChanged += ChangePoints;
 		p2.onPointsChanged += ChangePoints;
+		am.onAPChanged += ChangeAP;
 
 	}
 	
@@ -40,5 +43,9 @@ public class TopBarUI : MonoBehaviour {
 	void ChangeTurnNumber() {
 		turnNum++;
 		turnCounter.text = "Turn: " + turnNum;
+	}
+
+	void ChangeAP(int apRemaining) {
+		apText.text = "Action points: " + apRemaining;
 	}
 }
