@@ -99,22 +99,22 @@ public class GameTile : MonoBehaviour {
 		List<GameTile> adjTiles = new List<GameTile>();
 
 		myCollider.enabled = false;
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 1.3f);
 		if (hit.collider != null) {
 			GameTile t = hit.collider.gameObject.GetComponent<GameTile>();
 			adjTiles.Add(t);
 		}
-		hit = Physics2D.Raycast(transform.position, Vector2.right);
+		hit = Physics2D.Raycast(transform.position, Vector2.right, 1.3f);
 		if (hit.collider != null) {
 			GameTile t = hit.collider.gameObject.GetComponent<GameTile>();
 			adjTiles.Add(t);
 		}
-		hit = Physics2D.Raycast(transform.position, Vector2.down);
+		hit = Physics2D.Raycast(transform.position, Vector2.down, 1.3f);
 		if (hit.collider != null) {
 			GameTile t = hit.collider.gameObject.GetComponent<GameTile>();
 			adjTiles.Add(t);
 		}
-		hit = Physics2D.Raycast(transform.position, Vector2.left);
+		hit = Physics2D.Raycast(transform.position, Vector2.left, 1.3f);
 		if (hit.collider != null) {
 			GameTile t = hit.collider.gameObject.GetComponent<GameTile>();
 			adjTiles.Add(t);
@@ -154,21 +154,13 @@ public class GameTile : MonoBehaviour {
 			foreach (GameTile gt2 in gtAdj) {
 				if (gt2.myOwner == gt.myOwner && !myAdj.Contains(gt2)){
 					c++;
-					// Debug.Log("GT2 owner is " + gt2.myOwner + ". GT owner is " + gt.myOwner + ". GT2 is " + gt2 + ". GT is " + gt);
 				}
 			}
 			if (c <= 0) {
 				gt.myOwner = null;
 				toRemove.Add(gt);
 			}
-			// if (gt.myOwner == myOwner) {
-			// 	c0++;
-			// }
 		}
-		// if (c0 <= 0) {
-		// 	this.myOwner = null;
-		// 	toRemove.Add(this);
-		// }
 
 		return toRemove;
 	}
