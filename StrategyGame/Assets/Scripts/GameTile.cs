@@ -193,7 +193,7 @@ public class GameTile : MonoBehaviour {
 			// 	return;
 			List<GameTile> gtAdj = gt.GetAdjacentTiles();
 			foreach (GameTile gt2 in gtAdj) {
-				if (gt2.myOwner != p && gt2.myOwner != null) {
+				if ((yes && (gt2.myOwner != p && gt2.myOwner != null)) || (!yes && (gt2.myOwner != p && gt2.myOwner != null))) {
 					Debug.Log(gt2 + ": I can't be buildable because I have an owner!");
 					return;
 				}
@@ -201,11 +201,11 @@ public class GameTile : MonoBehaviour {
 					Debug.Log("Setting " + gt2 + " buildable by " + pnum);
 					if (pnum == 1) {
 						gt2.p1Buildable = yes;
-						gt2.sr.color = p1Tint;
+						gt2.sr.color = (yes)?p1Tint : Color.white;
 					}
 					else {
 						gt2.p2Buildable = yes;
-						gt2.sr.color = p2Tint;
+						gt2.sr.color =(yes)? p2Tint : Color.white;
 					}
 				}
 			}
@@ -216,11 +216,11 @@ public class GameTile : MonoBehaviour {
 			else {
 				if (pnum == 1) {
 					gt.p1Buildable = yes;
-					gt.sr.color = p1Tint;
+					gt.sr.color = (yes)?p1Tint : Color.white;
 				}
 				else {
 					gt.p2Buildable = yes;
-					gt.sr.color = p2Tint;
+					gt.sr.color = (yes)?p2Tint : Color.white;
 				}
 			}
 		}
