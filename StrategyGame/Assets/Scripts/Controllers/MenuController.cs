@@ -70,6 +70,15 @@ public class MenuController : MonoBehaviour {
 		this.gameManager.StartMatch();
 	}
 
+	public void Menu() {
+		this.gameManager.Menu();
+	}
+
+	public void Replay()
+	{
+		this.gameManager.Replay();
+	}
+
 	public void ChangeMasterVolumeLevels()
 	{
 		this.audioManager.setMasterVolume(this.masterVolumeSlider.value);

@@ -226,6 +226,24 @@ MonoBehaviour:
     source: {fileID: 0}
     volume: 0
     pitch: 0
+  - name: MenuTheme
+    isLooping: 1
+    isSFX: 0
+    randomVolumeValue: 0
+    randomPitchValue: 0
+    clip: {fileID: 8300000, guid: 4c9eccab6bd84c54b9a38616cd8e851f, type: 3}
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+  - name: MatchTheme
+    isLooping: 1
+    isSFX: 0
+    randomVolumeValue: 0
+    randomPitchValue: 0
+    clip: {fileID: 8300000, guid: 3b525c4521f4c0442953de7927895ff3, type: 3}
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
   masterVolume: 1
   musicVolume: 1
   effectsVolume: 1

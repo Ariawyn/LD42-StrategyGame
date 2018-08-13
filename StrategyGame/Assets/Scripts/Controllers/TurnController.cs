@@ -27,6 +27,8 @@ public class TurnController : MonoBehaviour
     AudioManager am;
     public ActionUI aui;
 
+    private GameManager gameManager;
+
 
 	// Use this for initialization
 	void Awake () 
@@ -43,6 +45,7 @@ public class TurnController : MonoBehaviour
 
 		// Grab inputmanager
 		inputManager = Object.FindObjectOfType<InputManager>();
+        this.gameManager = Object.FindObjectOfType<GameManager>();
         am = Object.FindObjectOfType<AudioManager>();
 
         this.player1 = GameObject.FindGameObjectWithTag("Player1Controller").GetComponent<PlayerController>();
@@ -163,12 +166,15 @@ public class TurnController : MonoBehaviour
 
 		if (p1Score == p2Score) {
 			//DRAW
+            this.gameManager.EndMatchScore(p1Score, p2Score, "DRAW");
 		}
 		else if (p1Score > p2Score) {
 			//P1 wins
+            this.gameManager.EndMatchScore(p1Score, p2Score, "PLAYER 1");
 		}
 		else {
 			//P2 wins
+            this.gameManager.EndMatchScore(p1Score, p2Score, "PLAYER 2");
 		}
 
 		//TODO: everything else for the end of the match

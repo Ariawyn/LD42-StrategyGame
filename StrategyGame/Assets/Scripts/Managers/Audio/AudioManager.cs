@@ -28,7 +28,8 @@ public class AudioManager : MonoBehaviour {
 		this.initLibrary();
 
 		// Load any saved sound settings from player prefs
-		this.loadSavedSoundSettings();
+		//this.loadSavedSoundSettings();
+
 	}
 
 	// Plays sound by name
@@ -51,6 +52,8 @@ public class AudioManager : MonoBehaviour {
 			} 
 			else 
 			{
+				Debug.Log("Attempting to play bgm: " + name);
+
 				// Stop all other songs
 				this.StopPlayingBGMS();
 				
