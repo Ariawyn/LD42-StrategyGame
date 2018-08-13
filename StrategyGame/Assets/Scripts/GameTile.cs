@@ -66,7 +66,7 @@ public class GameTile : MonoBehaviour {
 	/// Sets a prefab specified as the child of this object.
 	/// </summary>
 	/// <param name="prefab"></param>
-	public bool PlaceObjectOnThisTile(GameObject prefab, PlayerController activePlayer) {
+	public bool PlaceObjectOnThisTile(GameObject prefab, PlayerController activePlayer, bool initialize = false) {
 		if (isBridge){
 			Debug.Log("I'm a bridge, don't put anything on me");
 			return false;
@@ -77,7 +77,7 @@ public class GameTile : MonoBehaviour {
 			return false;
 		}
 		Debug.Log("Active player name is " + activePlayer.name + ". p1 buildable is " + p1Buildable + " and p2 buildable is " + p2Buildable);
-		if ((activePlayer.name == "Player1Controller" && !p1Buildable) || (activePlayer.name == "Player2Controller" && !p2Buildable)) {
+		if (((activePlayer.GetName() == "First" && !p1Buildable) || (activePlayer.GetName() == "Second" && !p2Buildable)) && initialize == false) {
 			Debug.Log("That tile is not buildable by this player!");
 			return false; 
 			
@@ -177,7 +177,7 @@ public class GameTile : MonoBehaviour {
 
 	void SetBuildableTiles(List<GameTile> gtList, PlayerController p, bool yes) {
 		// Debug.Log("Calculating buildable tiles");
-		int pnum = (p.name == "First") ? 1 : 2;
+		int pnum = (p.GetName() == "First") ? 1 : 2;
 
 		List<GameTile> adj = GetAdjacentTiles();
 		foreach (GameTile gt in gtList) {
@@ -185,18 +185,19 @@ public class GameTile : MonoBehaviour {
 			// 	return;
 			List<GameTile> gtAdj = gt.GetAdjacentTiles();
 			foreach (GameTile gt2 in gtAdj) {
-				if (gt2.myOwner != p) {
+				if (gt2.myOwner != p && gt2.myOwner != null) {
 					Debug.Log(gt2 + ": I can't be buildable because I have an owner!");
 					return;
 				}
 				else if (!adj.Contains(gt2)) {
+					Debug.Log("Setting " + gt2 + " buildable by " + pnum);
 					if (pnum == 1)
 						gt2.p1Buildable = yes;
 					else
 						gt2.p2Buildable = yes;
 				}
 			}
-			if (gt.myOwner != p){
+			if (gt.myOwner != p && gt.myOwner != null){
 				Debug.Log(gt + ": I can't be buildable because I have an owner!");
 				return;
 			}

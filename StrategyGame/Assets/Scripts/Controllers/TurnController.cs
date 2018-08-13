@@ -26,7 +26,7 @@ public class TurnController : MonoBehaviour
 
 
 	// Use this for initialization
-	void Start () 
+	void Awake () 
     {
 		// Check if the instance of the input manager has already been set and respond according to singleton format
 		if(instance != null)
@@ -139,5 +139,13 @@ public class TurnController : MonoBehaviour
         {
             return player2;
         }
+    }
+
+    public PlayerController GetSpecificPlayer(int num) {
+        if (num == 1) {
+            return player1;
+        }
+        else
+            return player2;
     }
 }

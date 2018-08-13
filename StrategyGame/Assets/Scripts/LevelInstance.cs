@@ -21,17 +21,21 @@ public class LevelInstance : MonoBehaviour {
 
 	public int numTilesToDecayPerTurn = 5;
 
+	ActionManager am;
+
 	
 	
 
 
     void Start() {
-        InstantiateLevel();
+		am = GetComponent<ActionManager>();
+        
         // cam = Camera.main;
 		turnController = GameObject.FindGameObjectWithTag("TurnController").GetComponent<TurnController>();
 		turnController.AddEndOfTurnEffect(this.Decay);
 
 		interactableTileCount = interactableTileHolder.childCount;
+		InstantiateLevel();
 		
     }
     // Just for testing
@@ -49,7 +53,13 @@ public class LevelInstance : MonoBehaviour {
     void InstantiateLevel() {
 		// tileMap = (GameObject)Instantiate(tileMapPrefab);
 		// tileMap.transform.SetParent(this.transform);
-    }
+		GameTile g = interactableTileHolder.GetChild(0).GetComponent<GameTile>();
+		PlayerController p = turnController.GetSpecificPlayer(1);
+		g.PlaceObjectOnThisTile(am.balloonPrefab, p, true);
+		List<GameTile> gl = g.CalculateOwnership(p);
+		Debug.Log(gl.Count);
+		p.AddLandToList(gl);
+	}
 
 	/// <summary>
 	/// Finds tiles adjacent to the position specified.

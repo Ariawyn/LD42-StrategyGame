@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     Dictionary<GameTile, GameObject> boxDict;
 
     // Use this for initialization
-	void Start () 
+	void Awake () 
     {
 		myLand = new List<GameTile>();
         boxDict = new Dictionary<GameTile,GameObject>();
