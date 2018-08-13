@@ -83,6 +83,15 @@ MonoBehaviour:
   occupyingObject: {fileID: 0}
   test: 0
   isBridge: 0
+  p1Balloon: {fileID: 0}
+  p1Cannon: {fileID: 0}
+  p2Balloon: {fileID: 0}
+  p2Cannon: {fileID: 0}
+  myOwner: {fileID: 0}
+  p1Buildable: 0
+  p2Buildable: 0
+  p1Tint: {r: 1, g: 0, b: 0, a: 0.29411766}
+  p2Tint: {r: 0, g: 0, b: 1, a: 0.8039216}
 --- !u!212 &212747481357579508
 SpriteRenderer:
   m_ObjectHideFlags: 1

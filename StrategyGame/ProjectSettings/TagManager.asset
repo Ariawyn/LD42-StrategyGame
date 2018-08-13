@@ -47,3 +47,6 @@ TagManager:
   - name: placeableObjects
     uniqueID: 560565689
     locked: 0
+  - name: boxes
+    uniqueID: 723781793
+    locked: 0

@@ -26,6 +26,11 @@ public class GameTile : MonoBehaviour {
 	
 	public bool p1Buildable;
 	public bool p2Buildable;
+	
+	public Color p1Tint;
+	public Color p2Tint;
+
+	SpriteRenderer sr;
 
 	void Awake() {
 		myLocation = transform.position;
@@ -33,6 +38,9 @@ public class GameTile : MonoBehaviour {
 			occupyingObject = transform.GetChild(0).gameObject;
 		}
 		myCollider = GetComponent<BoxCollider2D>();
+		sr = GetComponent<SpriteRenderer>();
+		p1Tint = new Vector4(1f,0.5f,0.5f,1f);
+		p2Tint = new Vector4(0.5f,0.5f,1f,1f);
 
 	}
 
@@ -191,10 +199,14 @@ public class GameTile : MonoBehaviour {
 				}
 				else if (!adj.Contains(gt2)) {
 					Debug.Log("Setting " + gt2 + " buildable by " + pnum);
-					if (pnum == 1)
+					if (pnum == 1) {
 						gt2.p1Buildable = yes;
-					else
+						gt2.sr.color = p1Tint;
+					}
+					else {
 						gt2.p2Buildable = yes;
+						gt2.sr.color = p2Tint;
+					}
 				}
 			}
 			if (gt.myOwner != p && gt.myOwner != null){
@@ -202,10 +214,14 @@ public class GameTile : MonoBehaviour {
 				return;
 			}
 			else {
-				if (pnum == 1)
+				if (pnum == 1) {
 					gt.p1Buildable = yes;
-				else
+					gt.sr.color = p1Tint;
+				}
+				else {
 					gt.p2Buildable = yes;
+					gt.sr.color = p2Tint;
+				}
 			}
 		}
 	}
