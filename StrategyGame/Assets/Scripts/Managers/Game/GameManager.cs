@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour 
 {
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
 	private GAME_STATE state;
 
 	// Use this for initialization
-	void Start () 
+	void Start() 
 	{
 
 		// Check if the instance of the input manager has already been set and respond according to singleton format
@@ -34,11 +35,11 @@ public class GameManager : MonoBehaviour
 
 		this.state = GAME_STATE.MAIN_MENU;
 
-		this.StartMatch();
+		this.Menu();
 	}
 	
 	// Update is called once per frame
-	void Update() 
+	void Update()
 	{
 		// If the game has moved in to the match state, then we need to start the match through the turn controller
 		// As such, we need to fetch the turn controller instance from the match scene
@@ -58,11 +59,18 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	void Menu()
+	{
+		this.state = GAME_STATE.MAIN_MENU;
+
+		SceneManager.LoadScene("Menu");
+	}
+
 	// Move into the match scene
-	void StartMatch()
+	public void StartMatch()
 	{
 		this.state = GAME_STATE.IN_MATCH;
-		
-		// TODO: Change scene into match scene
+
+		SceneManager.LoadScene("Match");
 	}
 }
