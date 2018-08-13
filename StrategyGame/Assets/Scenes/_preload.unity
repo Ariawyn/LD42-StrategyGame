@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 931986421}
   - component: {fileID: 931986420}
   - component: {fileID: 931986422}
+  - component: {fileID: 931986423}
   m_Layer: 0
   m_Name: __app
   m_TagString: Untagged
@@ -177,3 +178,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053c1debbe417794f8e4d6f274b0ab4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &931986423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 931986418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c78a693e9049e4d9f74d1f75659cd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: fireSFX
+    isLooping: 0
+    isSFX: 1
+    randomVolumeValue: 0
+    randomPitchValue: 0
+    clip: {fileID: 8300000, guid: 9329383bdbd244638beb933f0eac807b, type: 3}
+    source: {fileID: 0}
+    volume: 0
+    pitch: 0
+  - name: placeSFX
+    isLooping: 0
+    isSFX: 1
+    randomVolumeValue: 0
+    randomPitchValue: 0
+    clip: {fileID: 8300000, guid: c58f1475d1b31441f93c28c9fafe0bee, type: 3}
+    source: {fileID: 0}
+    volume: 0
+    pitch: 0
+  - name: turnSFX
+    isLooping: 0
+    isSFX: 1
+    randomVolumeValue: 0
+    randomPitchValue: 0
+    clip: {fileID: 8300000, guid: a34e5682b7b834bdd84e6ac01e84421b, type: 3}
+    source: {fileID: 0}
+    volume: 0
+    pitch: 0
+  - name: bridgeSFX
+    isLooping: 0
+    isSFX: 1
+    randomVolumeValue: 0
+    randomPitchValue: 0
+    clip: {fileID: 8300000, guid: 5eb1fea26c6144981a965c8176599d85, type: 3}
+    source: {fileID: 0}
+    volume: 0
+    pitch: 0
+  masterVolume: 1
+  musicVolume: 1
+  effectsVolume: 1

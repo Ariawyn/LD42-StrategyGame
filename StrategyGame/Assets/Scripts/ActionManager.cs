@@ -32,6 +32,7 @@ public class ActionManager : MonoBehaviour {
 
 	PlayerController activePlayer;
 	TurnController tc;
+	AudioManager am;
 
 	/* We need to choose a tile, activate an option menu, register an option, tell the tile/manager
 	what to do, subtract the action points for this turn, register when the action points are zero,
@@ -41,6 +42,7 @@ public class ActionManager : MonoBehaviour {
 		cam = Camera.main;
 		OnTurnStart();
 		tc = GameObject.FindGameObjectWithTag("TurnController").GetComponent<TurnController>();
+		am = Object.FindObjectOfType<AudioManager>();
 	}
 
 	void OnTurnStart() {
@@ -76,6 +78,7 @@ public class ActionManager : MonoBehaviour {
 				selectedTile.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.blue;
 			}
 			SubtractAP(apToBuildBalloon);
+			am.Play("placeSFX");
 		}
 	}
 
@@ -98,6 +101,7 @@ public class ActionManager : MonoBehaviour {
 				selectedTile.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.blue;
 			}
 			SubtractAP(apToBuildCannon);
+			am.Play("placeSFX");
 		}
 	}
 
@@ -117,6 +121,7 @@ public class ActionManager : MonoBehaviour {
 			// tempList.Add(selectedTile);
 			p.AddLandToList(tempList);
 			SubtractAP(apToBuildBridge);
+			am.Play("bridgeSFX");
 		}
 		else {
 			//Don't do the stuff.
@@ -140,6 +145,7 @@ public class ActionManager : MonoBehaviour {
 			
 			p.RemoveFromLandList(toRemove);
 			SubtractAP(apToFireCannon);
+			am.Play("fireSFX");
 		}
 		else {
 			Debug.Log("That's not a balloon");

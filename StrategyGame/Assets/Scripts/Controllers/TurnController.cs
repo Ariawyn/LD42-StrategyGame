@@ -24,6 +24,8 @@ public class TurnController : MonoBehaviour
     public event OnTurnEnd onTurnEnd;
     [HideInInspector] private bool hasEndOTurnEffect = false;
 
+    AudioManager am;
+
 
 	// Use this for initialization
 	void Awake () 
@@ -40,6 +42,7 @@ public class TurnController : MonoBehaviour
 
 		// Grab inputmanager
 		inputManager = Object.FindObjectOfType<InputManager>();
+        am = Object.FindObjectOfType<AudioManager>();
 
         this.player1 = GameObject.FindGameObjectWithTag("Player1Controller").GetComponent<PlayerController>();
         this.player2 = GameObject.FindGameObjectWithTag("Player2Controller").GetComponent<PlayerController>();
@@ -103,6 +106,7 @@ public class TurnController : MonoBehaviour
         }
 
         this.turnCounter++;
+        am.Play("turnSFX");
 
         if(this.turnCounter >= this.maxAmountOfTurns)
         {
